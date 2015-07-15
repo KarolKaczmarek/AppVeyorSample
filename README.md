@@ -4,4 +4,4 @@
 
 Description
 
-Sample project
+Sample project.
