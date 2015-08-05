@@ -4,6 +4,8 @@
 
 install: 
   - cinst -y pester
+  - ps: |
+      nuget.exe spec
 
 #---------------------------------# 
 #      build configuration        # 
