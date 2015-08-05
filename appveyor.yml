@@ -4,7 +4,7 @@
 
 install: 
   - cinst -y pester
-  - $pwd
+  - ps: $pwd
 
 #---------------------------------# 
 #      build configuration        # 
