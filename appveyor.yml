@@ -75,7 +75,7 @@ on_finish:
         [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFilePath)
         
         # Creating NuGet package artifact
-        New-Item nuget -ItemType Directory
+        New-Item nuget -ItemType Directory > $null
         Push-Location
         cd lib
         nuget.exe spec
@@ -88,7 +88,7 @@ on_finish:
             (ls $zipFilePath),
             (ls $nuGetPackagePath)
         ) | % { 
-            Write-Info "Pushing package $_.Name as Appveyor artifact"
+            Write-Host "Pushing package $_.Name as Appveyor artifact"
             Push-AppveyorArtifact $_.FullName 
           }
         
