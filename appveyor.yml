@@ -81,8 +81,7 @@ on_finish:
         nuget.exe spec
         Pop-Location
         nuget pack .\lib\Package.nuspec -outputdirectory .\nuget
-        $nuGetPackagePath = (Get-ChildItem .\nuget).FullPath
-        Get-ChildItem .\nuget
+        $nuGetPackagePath = (Get-ChildItem .\nuget).FullName
         
         @(
             # You can add other artifacts here
