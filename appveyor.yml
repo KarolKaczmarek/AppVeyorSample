@@ -85,11 +85,11 @@ on_finish:
         
         @(
             # You can add other artifacts here
-            (ls $zipFilePath),
-            (ls $nuGetPackagePath)
+            $zipFilePath,
+            $nuGetPackagePath
         ) | % { 
-            Write-Host "Pushing package $_.Name as Appveyor artifact"
-            Push-AppveyorArtifact $_.FullName 
+            Write-Host "Pushing package $_ as Appveyor artifact"
+            Push-AppveyorArtifact $_
           }
         
         
