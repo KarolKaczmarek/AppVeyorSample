@@ -1,7 +1,19 @@
+#---------------------------------# 
+#      environment configuration  # 
+#---------------------------------# 
+
 install: 
   - cinst -y pester
 
+#---------------------------------# 
+#      build configuration        # 
+#---------------------------------# 
+
 build: false
+
+#---------------------------------# 
+#      test configuration         # 
+#---------------------------------# 
 
 test_script:
     - ps: |
@@ -11,16 +23,19 @@ test_script:
         if ($res.FailedCount -gt 0) { 
             throw "$($res.FailedCount) tests failed."
         }
-on_finish:
-    - ps: |
-        $stagingDirectory = (Resolve-Path ..).Path
-        $zipFile = Join-Path $stagingDirectory "$(Split-Path $pwd -Leaf).zip"
-        Add-Type -assemblyname System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFile)
-        @(
-            # You can add other artifacts here
-            (ls $zipFile)
-        ) | % { Push-AppveyorArtifact $_.FullName }
+
+#---------------------------------# 
+#      artifacts configuration    # 
+#---------------------------------# 
+
+artifacts:
+  - path: lib
+    name: lib
+    type: zip
+    
+#---------------------------------# 
+#      deployment configuration   # 
+#---------------------------------# 
 
 deploy:
   release: AppVeyorSample-v$(appveyor_build_version)
@@ -35,3 +50,17 @@ deploy:
     branch: dev                 
     appveyor_repo_tag: false
 
+#---------------------------------# 
+#      global handlers            # 
+#---------------------------------# 
+
+on_finish:
+    - ps: |
+        $stagingDirectory = (Resolve-Path ..).Path
+        $zipFile = Join-Path $stagingDirectory "$(Split-Path $pwd -Leaf).zip"
+        Add-Type -assemblyname System.IO.Compression.FileSystem
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFile)
+        @(
+            # You can add other artifacts here
+            (ls $zipFile)
+        ) | % { Push-AppveyorArtifact $_.FullName }
