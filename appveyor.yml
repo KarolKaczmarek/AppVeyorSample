@@ -38,6 +38,33 @@ artifacts:
 #      deployment configuration   # 
 #---------------------------------# 
 
+# scripts to run before deployment 
+before_deploy: 
+  - ps: |
+      # Creating project artifact
+      $stagingDirectory = (Resolve-Path ..).Path
+      $zipFilePath = Join-Path $stagingDirectory "$(Split-Path $pwd -Leaf).zip"
+      Add-Type -assemblyname System.IO.Compression.FileSystem
+      [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFilePath)
+      
+      # Creating NuGet package artifact
+      New-Item nuget -ItemType Directory > $null
+      Push-Location
+      cd lib
+      nuget.exe spec
+      Pop-Location
+      nuget pack .\lib\Package.nuspec -outputdirectory .\nuget
+      $nuGetPackagePath = (Get-ChildItem .\nuget).FullName
+      
+      @(
+          # You can add other artifacts here
+          $zipFilePath,
+          $nuGetPackagePath
+      ) | % { 
+          Write-Host "Pushing package $_ as Appveyor artifact"
+          Push-AppveyorArtifact $_
+        }
+  
 deploy:
 
     # Deploying to GitHub
@@ -66,31 +93,7 @@ deploy:
 #      global handlers            # 
 #---------------------------------# 
 
-on_finish:
-    - ps: |
-        # Creating project artifact
-        $stagingDirectory = (Resolve-Path ..).Path
-        $zipFilePath = Join-Path $stagingDirectory "$(Split-Path $pwd -Leaf).zip"
-        Add-Type -assemblyname System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFilePath)
-        
-        # Creating NuGet package artifact
-        New-Item nuget -ItemType Directory > $null
-        Push-Location
-        cd lib
-        nuget.exe spec
-        Pop-Location
-        nuget pack .\lib\Package.nuspec -outputdirectory .\nuget
-        $nuGetPackagePath = (Get-ChildItem .\nuget).FullName
-        
-        @(
-            # You can add other artifacts here
-            $zipFilePath,
-            $nuGetPackagePath
-        ) | % { 
-            Write-Host "Pushing package $_ as Appveyor artifact"
-            Push-AppveyorArtifact $_
-          }
+#on_finish:
         
         
         
