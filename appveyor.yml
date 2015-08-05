@@ -22,4 +22,15 @@ on_finish:
             (ls $zipFile)
         ) | % { Push-AppveyorArtifact $_.FullName }
 
+deploy:
+  release: AppVeyorSample-v$(appveyor_build_version)
+  provider: GitHub
+  auth_token:
+    secure: 1Y8dcTfYEodas1RozybiCbQeUL6tMwpaKSJyRCN0s/LTABwaOOtBAqMEy9KxXgNp
+  artifact: /.*\.nupkg/            
+  draft: false
+  prerelease: false
+  on:
+    branch: dev                 
+    appveyor_repo_tag: false
 
