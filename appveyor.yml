@@ -38,10 +38,12 @@ artifacts:
 #---------------------------------# 
 
 deploy:
+
+# Deploying to GitHub
+  provider: GitHub
   release: AppVeyorSample-v$(appveyor_build_version)
   description: Release of AppVeyorSample-v$(appveyor_build_version)
   tag: AppVeyorSample-v$(appveyor_build_version)
-  provider: GitHub
   auth_token:
     secure: 1Y8dcTfYEodas1RozybiCbQeUL6tMwpaKSJyRCN0s/LTABwaOOtBAqMEy9KxXgNp
   draft: false
@@ -50,7 +52,7 @@ deploy:
     branch: dev                 
     appveyor_repo_tag: false
 
-deploy:
+# Deploying to NuGet
   provider: NuGet
   server: https://ci.appveyor.com/nuget/appveyorsample-m6icy7u2i2x7
   api_key:
