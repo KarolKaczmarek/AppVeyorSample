@@ -4,8 +4,7 @@
 
 install: 
   - cinst -y pester
-  - ps: |
-      nuget.exe spec
+      
 
 #---------------------------------# 
 #      build configuration        # 
@@ -69,11 +68,29 @@ deploy:
 
 on_finish:
     - ps: |
+        # Creating project artifact
         $stagingDirectory = (Resolve-Path ..).Path
-        $zipFile = Join-Path $stagingDirectory "$(Split-Path $pwd -Leaf).zip"
+        $zipFilePath = Join-Path $stagingDirectory "$(Split-Path $pwd -Leaf).zip"
         Add-Type -assemblyname System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFile)
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFilePath)
+        
+        # Creating NuGet package artifact
+        New-Item nuget -ItemType Directory > $null
+        Push-Location
+        cd lib
+        nuget.exe spec
+        Pop-Location
+        nuget pack .\lib\Package.nuspec -outputdirectory .\nuget
+        $nuGetPackagePath = (Get-ChildItem .\nuget).FullPath
+        
         @(
             # You can add other artifacts here
-            (ls $zipFile)
-        ) | % { Push-AppveyorArtifact $_.FullName }
+            (ls $zipFilePath),
+            (ls $nuGetPackagePath)
+        ) | % { 
+            Write-Host "Pushing package $_.Name as Appveyor artifact"
+            Push-AppveyorArtifact $_.FullName 
+          }
+        
+        
+        
