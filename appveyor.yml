@@ -50,6 +50,14 @@ deploy:
     branch: dev                 
     appveyor_repo_tag: false
 
+deploy:
+  provider: NuGet
+  server: https://ci.appveyor.com/nuget/appveyorsample-m6icy7u2i2x7
+  api_key:
+    secure: saLWD0OK+Ertxb4/VTdM1AkQY6j9ozPNGBczwXTaWdc=
+  skip_symbols: true
+
+
 #---------------------------------# 
 #      global handlers            # 
 #---------------------------------# 
