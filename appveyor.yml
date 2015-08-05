@@ -49,8 +49,9 @@ deploy:
     draft: false
     prerelease: false
     on:
-      branch: dev                 
-      appveyor_repo_tag: true
+      branch: dev              
+      # Determines whether to deploy only on regular commits or commits with tags
+      appveyor_repo_tag: false 
 
     # Deploying to NuGet
   - provider: NuGet
