@@ -4,7 +4,6 @@
 
 install: 
   - cinst -y pester
-  - ps: Get-ChildItem
 
 #---------------------------------# 
 #      build configuration        # 
