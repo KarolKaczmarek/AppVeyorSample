@@ -83,7 +83,7 @@ deploy:
 
     # Deploying to NuGet
   - provider: NuGet
-    server: https://ci.appveyor.com/nuget/appveyorsample-m6icy7u2i2x7
+    server: https://ci.appveyor.com/nuget/karol-asrhfjcon69q
     api_key:
       secure: /kAYJdDhAKj6RBpi/weLOFTCeMHI3meVHyDK/zMDZ3w=
     skip_symbols: true
