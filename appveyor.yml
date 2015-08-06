@@ -87,6 +87,8 @@ deploy:
     api_key:
       secure: /kAYJdDhAKj6RBpi/weLOFTCeMHI3meVHyDK/zMDZ3w=
     skip_symbols: true
+    on:
+      appveyor_repo_tag: false
 
 
 #---------------------------------# 
