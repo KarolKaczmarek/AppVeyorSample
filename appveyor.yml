@@ -85,7 +85,7 @@ deploy:
   - provider: NuGet
     server: https://ci.appveyor.com/nuget/appveyorsample-m6icy7u2i2x7
     api_key:
-      secure: saLWD0OK+Ertxb4/VTdM1AkQY6j9ozPNGBczwXTaWdc=
+      secure: /kAYJdDhAKj6RBpi/weLOFTCeMHI3meVHyDK/zMDZ3w=
     skip_symbols: true
 
 
