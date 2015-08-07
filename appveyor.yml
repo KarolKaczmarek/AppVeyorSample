@@ -73,7 +73,8 @@ deploy:
     release: $(appveyor_project_name)-v$(appveyor_build_version)
     description: Release of $(appveyor_project_name)-v$(appveyor_build_version)
     tag: $(appveyor_project_name)-v$(appveyor_build_version)
-    auth_token: $(EncryptedGitHubKey)
+    auth_token: #$(EncryptedGitHubKey)
+      secure: 1Y8dcTfYEodas1RozybiCbQeUL6tMwpaKSJyRCN0s/LTABwaOOtBAqMEy9KxXgNp
     draft: false
     prerelease: false
     on:
