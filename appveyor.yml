@@ -9,7 +9,7 @@ install:
   - cd AppVeyorSampleHelper
   - ps: Import-Module .\TestHelper.psm1 -force
   - ps: Pop-Location
-  - ps: $env:EncryptedNuGetAccountFeedKey
+  - ps: $env:NuGetAccountFeedKey
 
 #---------------------------------# 
 #      build configuration        # 
