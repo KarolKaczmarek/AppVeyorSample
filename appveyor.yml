@@ -4,7 +4,11 @@
 
 install: 
   - cinst -y pester
-      
+  - git clone https://github.com/KarolKaczmarek/AppVeyorSampleHelper
+  - ps: Push-Location
+  - cd AppVeyorSampleHelper
+  - ps: Import-Module .\TestHelper.psm1 -force
+  - ps: Pop-Location
 
 #---------------------------------# 
 #      build configuration        # 
@@ -49,11 +53,8 @@ before_deploy:
       
       # Creating NuGet package artifact
       New-Item nuget -ItemType Directory > $null
-      Push-Location
-      cd lib
-      nuget.exe spec
-      Pop-Location
-      nuget pack .\lib\Package.nuspec -outputdirectory .\nuget
+      New-Nuspec -packageName $env:APPVEYOR_PROJECT_NAME -version $env:APPVEYOR_BUILD_VERSION -author "MS" -owners "MS" -licenseUrl "https://github.com/PowerShell/DscResources/blob/master/LICENSE" -projectUrl "https://github.com/$($env:APPVEYOR_REPO_NAME)" -packageDescription $env:APPVEYOR_PROJECT_NAME -tags "DesiredStateConfiguration DSC DSCResourceKit" -destinationPath .\lib
+      nuget pack ".\lib\$($env:APPVEYOR_PROJECT_NAME).nuspec" -outputdirectory .\nuget
       $nuGetPackagePath = (Get-ChildItem .\nuget).FullName
       
       @(
@@ -69,15 +70,15 @@ deploy:
 
     # Deploying to GitHub
   - provider: GitHub
-    release: AppVeyorSample-v$(appveyor_build_version)
-    description: Release of AppVeyorSample-v$(appveyor_build_version)
-    tag: AppVeyorSample-v$(appveyor_build_version)
+    release: $(appveyor_project_name)-v$(appveyor_build_version)
+    description: Release of $(appveyor_project_name)-v$(appveyor_build_version)
+    tag: $(appveyor_project_name)-v$(appveyor_build_version)
     auth_token:
-      secure: 1Y8dcTfYEodas1RozybiCbQeUL6tMwpaKSJyRCN0s/LTABwaOOtBAqMEy9KxXgNp
+      secure: $(EncryptedGitHubKey)
     draft: false
     prerelease: false
     on:
-      branch: dev              
+      #branch: dev
       # Determines whether to deploy only on regular commits or commits with tags
       appveyor_repo_tag: false 
 
@@ -85,7 +86,7 @@ deploy:
   - provider: NuGet
     server: https://ci.appveyor.com/nuget/karol-asrhfjcon69q
     api_key:
-      secure: /kAYJdDhAKj6RBpi/weLOFTCeMHI3meVHyDK/zMDZ3w=
+      secure: $(EncryptedNuGetAccountFeedKey)
     skip_symbols: true
     on:
       appveyor_repo_tag: false
@@ -94,8 +95,5 @@ deploy:
 #---------------------------------# 
 #      global handlers            # 
 #---------------------------------# 
-
-#on_finish:
-        
         
         
