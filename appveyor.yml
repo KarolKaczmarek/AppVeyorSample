@@ -9,7 +9,6 @@ install:
   - cd AppVeyorSampleHelper
   - ps: Import-Module .\TestHelper.psm1 -force
   - ps: Pop-Location
-  - ps: $env:GitHubKey
 
 #---------------------------------# 
 #      build configuration        # 
@@ -70,18 +69,18 @@ before_deploy:
 deploy:
 
     # Deploying to GitHub
-  - provider: GitHub
-    release: $(appveyor_project_name)-v$(appveyor_build_version)
-    description: Release of $(appveyor_project_name)-v$(appveyor_build_version)
-    tag: $(appveyor_project_name)-v$(appveyor_build_version)
-    auth_token:
-      secure: ++aemfGy5WMYfJLgZvP7ox7UwfNzn4uwIIFoobB1MEzewjMjl29oW0m98Fnz/NKb
-    draft: false
-    prerelease: false
-    on:
-      #branch: dev
-      # Determines whether to deploy only on regular commits or commits with tags
-      appveyor_repo_tag: false 
+#  - provider: GitHub
+#    release: $(appveyor_project_name)-v$(appveyor_build_version)
+#    description: Release of $(appveyor_project_name)-v$(appveyor_build_version)
+#    tag: $(appveyor_project_name)-v$(appveyor_build_version)
+#    auth_token:
+#      secure: ++aemfGy5WMYfJLgZvP7ox7UwfNzn4uwIIFoobB1MEzewjMjl29oW0m98Fnz/NKb
+#    draft: false
+#    prerelease: false
+#    on:
+#      #branch: dev
+#      # Determines whether to deploy only on regular commits or commits with tags
+#      appveyor_repo_tag: false 
 
     # Deploying to NuGet
   - provider: NuGet
