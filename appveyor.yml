@@ -74,7 +74,8 @@ deploy:
     release: $(appveyor_project_name)-v$(appveyor_build_version)
     description: Release of $(appveyor_project_name)-v$(appveyor_build_version)
     tag: $(appveyor_project_name)-v$(appveyor_build_version)
-    auth_token: $(GitHubKey)
+    auth_token:
+      secure: ++aemfGy5WMYfJLgZvP7ox7UwfNzn4uwIIFoobB1MEzewjMjl29oW0m98Fnz/NKb
     draft: false
     prerelease: false
     on:
@@ -85,7 +86,8 @@ deploy:
     # Deploying to NuGet
   - provider: NuGet
     server: https://ci.appveyor.com/nuget/karol-neqk5nffsnll
-    api_key: $(NuGetAccountFeedKey)
+    api_key:
+      secure: V4vwOTsPWWwWasVZPVTY949Fuc93lffGRT2UAfz28wM=
     skip_symbols: true
     on:
       appveyor_repo_tag: false
