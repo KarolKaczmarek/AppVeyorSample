@@ -83,13 +83,13 @@ deploy:
 #      appveyor_repo_tag: false 
 
     # Deploying to NuGet
-  - provider: NuGet
-    server: https://ci.appveyor.com/nuget/karol-neqk5nffsnll
-    api_key:
-      secure: V4vwOTsPWWwWasVZPVTY949Fuc93lffGRT2UAfz28wM=
-    skip_symbols: true
-    on:
-      appveyor_repo_tag: false
+#  - provider: NuGet
+#    server: https://ci.appveyor.com/nuget/karol-neqk5nffsnll
+#    api_key:
+#      secure: V4vwOTsPWWwWasVZPVTY949Fuc93lffGRT2UAfz28wM=
+#    skip_symbols: true
+#    on:
+#      appveyor_repo_tag: false
 
 
 #---------------------------------# 
