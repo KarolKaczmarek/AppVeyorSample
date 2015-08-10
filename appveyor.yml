@@ -55,10 +55,8 @@ before_deploy:
       #New-Item nuget -ItemType Directory > $null
       New-Nuspec -packageName $env:APPVEYOR_PROJECT_NAME -version $env:APPVEYOR_BUILD_VERSION -author "MS" -owners "MS" -licenseUrl "https://github.com/PowerShell/DscResources/blob/master/LICENSE" -projectUrl "https://github.com/$($env:APPVEYOR_REPO_NAME)" -packageDescription $env:APPVEYOR_PROJECT_NAME -tags "DesiredStateConfiguration DSC DSCResourceKit" -destinationPath .
       nuget pack ".\$($env:APPVEYOR_PROJECT_NAME).nuspec" -outputdirectory .
-      dir
       $nuGetPackageName = $env:APPVEYOR_PROJECT_NAME + "." + $env:APPVEYOR_BUILD_VERSION + ".nupkg"
       $nuGetPackagePath = (Get-ChildItem $nuGetPackageName).FullName
-      Write-Host "nugetpackagePath = $nuGetPackagePath"
       
       @(
           # You can add other artifacts here
