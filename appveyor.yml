@@ -66,7 +66,7 @@ before_deploy:
           Write-Host "Pushing package $_ as Appveyor artifact"
           Push-AppveyorArtifact $_
         }
-  
+      Write-Host "APPVEYOR_REPO_TAG = $env:APPVEYOR_REPO_TAG" 
 deploy:
 
     # Deploying to GitHub
