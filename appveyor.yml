@@ -28,6 +28,7 @@ test_script:
         if ($res.FailedCount -gt 0) { 
             throw "$($res.FailedCount) tests failed."
         }
+        Write-Host "APPVEYOR_REPO_TAG = $env:APPVEYOR_REPO_TAG" 
 
 #---------------------------------# 
 #      artifacts configuration    # 
@@ -67,6 +68,7 @@ before_deploy:
           Push-AppveyorArtifact $_
         }
       Write-Host "APPVEYOR_REPO_TAG = $env:APPVEYOR_REPO_TAG" 
+      
 deploy:
 
     # Deploying to GitHub
