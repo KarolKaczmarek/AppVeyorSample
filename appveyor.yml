@@ -5,7 +5,7 @@ os: WMF 5
 
 environment:
   powershellgallery_api_token:
-    secure: QFMDktDREWbxRj3h74Bud1xZI7FDti2aCIqwAj1l46RjPxH/tKOXp5+/IQVpXi9L
+    secure: +e4nc0IUMbnSjiaFaWwjb00GGYhkQnxxN09gsbTrn/qZ90vOsLoDlKdZiqCRASWr
     
 install: 
   - cinst -y pester
@@ -57,7 +57,7 @@ deploy_script:
         $projectUri = "https://github.com/KarolKaczmarek/$env:APPVEYOR_PROJECT_NAME"
         $licenseUri = "https://github.com/KarolKaczmarek/$env:APPVEYOR_PROJECT_NAME/blob/master/LICENSE"
         $tag = 'AutoDeployed'
-        Publish-Module -Name $env:APPVEYOR_PROJECT_NAME -ProjectUri $projectUri -LicenseUri $licenseUri -Tag $tag -NuGetApiKey $env:powershellgallery_api_token -verbose
+        Publish-Module -Path $env:APPVEYOR_BUILD_FOLDER -ProjectUri $projectUri -LicenseUri $licenseUri -Tag $tag -NuGetApiKey $env:powershellgallery_api_token -verbose
       }
       
       # Creating project artifact
@@ -66,7 +66,7 @@ deploy_script:
       Add-Type -assemblyname System.IO.Compression.FileSystem
       [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFilePath)
       
-      Write-Host "TODO-temporary stagingDirectory = $stagingDirectory; projectUri = $projectUri; licenseUri = $licenseUri; tag = $tag; powershellgallery_api_token= $env:powershellgallery_api_token"
+      Write-Host "TODO-temporary stagingDirectory = $stagingDirectory; APPVEYOR_BUILD_FOLDER = $env:APPVEYOR_BUILD_FOLDER; projectUri = $projectUri; licenseUri = $licenseUri; tag = $tag"
       
       # Creating NuGet package artifact
       #New-Item nuget -ItemType Directory > $null
