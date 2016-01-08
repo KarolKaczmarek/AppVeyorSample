@@ -66,7 +66,7 @@ deploy_script:
           Write-Host "Pushing package $_ as Appveyor artifact"
           Push-AppveyorArtifact $_
         }
-      Write-Host "APPVEYOR_REPO_TAG = $env:APPVEYOR_REPO_TAG" 
+      Write-Host "APPVEYOR_REPO_TAG = $env:APPVEYOR_REPO_TAG; APPVEYOR_BUILD_FOLDER = $env:APPVEYOR_BUILD_FOLDER ; PWD = $pwd" 
       
 deploy:
 
