@@ -27,7 +27,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) 2016 Karol Kaczmarek. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'AppVeyorSample'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''
