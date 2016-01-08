@@ -67,6 +67,10 @@ deploy_script:
       [System.IO.Compression.ZipFile]::CreateFromDirectory($pwd, $zipFilePath)
       
       Write-Host "TODO-temporary stagingDirectory = $stagingDirectory; APPVEYOR_BUILD_FOLDER = $env:APPVEYOR_BUILD_FOLDER; projectUri = $projectUri; licenseUri = $licenseUri; tag = $tag"
+      Write-Host "TODO TEMP DIR: C:\Users\appveyor\AppData\Local\PackageManagement\ProviderAssemblies"
+      dir "C:\Users\appveyor\AppData\Local\PackageManagement\ProviderAssemblies"
+      Write-Host "TODO TEMP DIR: C:\Program Files\PackageManagement\ProviderAssemblies"
+      dir "C:\Program Files\PackageManagement\ProviderAssemblies"
       
       # Creating NuGet package artifact
       #New-Item nuget -ItemType Directory > $null
