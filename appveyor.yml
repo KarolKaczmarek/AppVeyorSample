@@ -57,15 +57,17 @@ deploy_script:
       
       if ($env:APPVEYOR_REPO_TAG_NAME -notlike "*-PSGallery") #TODO Temporarily publish when tag isn't like *-PSGallery (change it to -like after testing)
       {
+        Find-Package -Name SomeSamplePackage123 -ErrorAction Ignore -ForceBootstrap;
+        
         # Register internal PS Gallery repository (this is for testing purposes only, please use powershellgallery.com)
+        Write-Host "Register internal PSGallery repository"
         Register-PSRepository -Name InternalPSGallery -SourceLocation https://dtlgalleryint.cloudapp.net/api/v2 -PublishLocation https://dtlgalleryint.cloudapp.net/api/v2/package/
         
-        Write-Host "Publishing $env:APPVEYOR_PROJECT_NAME to PowerShellGallery"
         $projectUri = "https://github.com/KarolKaczmarek/$env:APPVEYOR_PROJECT_NAME"
         $licenseUri = "https://github.com/KarolKaczmarek/$env:APPVEYOR_PROJECT_NAME/blob/master/LICENSE"
         $tag = 'AutoDeployed'
         
-        Find-Package -Name SomeSamplePackage123 -ErrorAction Ignore -ForceBootstrap;
+        Write-Host "Publishing $env:APPVEYOR_PROJECT_NAME to PowerShellGallery"
         Publish-Module -Path $env:APPVEYOR_BUILD_FOLDER -ProjectUri $projectUri -LicenseUri $licenseUri -Tag $tag -NuGetApiKey $env:powershellgalleryinternal_api_token -Repository InternalPSGallery -verbose
       }
       
