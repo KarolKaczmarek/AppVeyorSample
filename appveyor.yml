@@ -6,6 +6,8 @@ os: WMF 5
 environment:
   powershellgallery_api_token:
     secure: +e4nc0IUMbnSjiaFaWwjb00GGYhkQnxxN09gsbTrn/qZ90vOsLoDlKdZiqCRASWr
+  powershellgalleryinternal_api_token:
+    secure: qH5skGAL0hSzcNxTYw9CQPNc8kKPWMe9pHC564sdzmVczWtEZ63rMYzAtHsz4eAK
     
 install: 
   - cinst -y pester
