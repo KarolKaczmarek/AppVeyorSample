@@ -55,7 +55,7 @@ deploy_script:
       # Publish to PowerShell Gallery on tag
       Write-Host "Starting the deployment. Tag value is: $env:APPVEYOR_REPO_TAG_NAME";
       
-      if ($env:APPVEYOR_REPO_TAG_NAME -notlike "*-PSGallery") #TODO Temporarily publish when tag isn't like *-PSGallery (change it to -like after testing)
+      if ($env:APPVEYOR_REPO_TAG_NAME -like "*-PSGallery")
       {
         Find-Package -Name SomeSamplePackage123 -ErrorAction Ignore -ForceBootstrap;
         
