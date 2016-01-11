@@ -47,7 +47,7 @@ artifacts:
 #      deployment configuration   # 
 #---------------------------------# 
 
-# scripts to run before deployment 
+# Script to run during the deployment 
 deploy_script: 
   - ps: |
       # Publish to PowerShell Gallery on tag
