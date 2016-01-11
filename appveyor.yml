@@ -55,11 +55,14 @@ deploy_script:
       # Publish to PowerShell Gallery on tag
       if ($env:APPVEYOR_REPO_TAG -eq $false) #TODO Temporarily publish when its not tagged (for testing)
       {
+        # Register internal PS Gallery repository (this is for testing purposes only, please use powershellgallery.com)
+        Register-PSRepository -Name InternalPSGallery -SourceLocation https://dtlgalleryint.cloudapp.net/api/v2 -PublishLocation https://dtlgalleryint.cloudapp.net/api/v2/package/
+        
         Write-Host "Publishing $env:APPVEYOR_PROJECT_NAME to PowerShellGallery"
         $projectUri = "https://github.com/KarolKaczmarek/$env:APPVEYOR_PROJECT_NAME"
         $licenseUri = "https://github.com/KarolKaczmarek/$env:APPVEYOR_PROJECT_NAME/blob/master/LICENSE"
         $tag = 'AutoDeployed'
-        Publish-Module -Path $env:APPVEYOR_BUILD_FOLDER -ProjectUri $projectUri -LicenseUri $licenseUri -Tag $tag -NuGetApiKey $env:powershellgallery_api_token -verbose
+        Publish-Module -Path $env:APPVEYOR_BUILD_FOLDER -ProjectUri $projectUri -LicenseUri $licenseUri -Tag $tag -NuGetApiKey $env:powershellgalleryinternal_api_token -Repository InternalPSGallery -verbose
       }
       
       # Creating project artifact
