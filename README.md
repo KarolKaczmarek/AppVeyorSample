@@ -5,5 +5,3 @@
 Description
 
 Sample project
-
-Test7
