@@ -8,6 +8,8 @@ environment:
     secure: +e4nc0IUMbnSjiaFaWwjb00GGYhkQnxxN09gsbTrn/qZ90vOsLoDlKdZiqCRASWr
   powershellgalleryinternal_api_token:
     secure: qH5skGAL0hSzcNxTYw9CQPNc8kKPWMe9pHC564sdzmVczWtEZ63rMYzAtHsz4eAK
+  encryption_test:
+    secure: rfVlKqBW/+KYbxwKzf6PUg==
     
 install: 
   - cinst -y pester
