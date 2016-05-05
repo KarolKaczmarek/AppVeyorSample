@@ -5,6 +5,7 @@ Import-Module .\Math.psm1 -force
 
 Describe 'Math' {
     Context 'multiply function' {
+        Write-Host "encryption_test variable value: $env:encryption_test"
         It 'should correctly multiply positive numbers' {
             Write-Host "GitHub key... : $($env:GitHubKey)"
             $result = multiply -first 4 -second 3
